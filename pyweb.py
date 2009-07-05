@@ -58,8 +58,8 @@ class PyWeb:
                 'title': self.title}
         self.mainbar.set_text(self.status_format % dic)
 
-    def add_binding(self, binding, callback):
-        self.bindings.add(binding, callback)
+    def add_binding(self, binding, callback, regexp=False):
+        self.bindings.add(binding, callback, regexp)
 
     def run_keycmd(self, forced=False):
         callback = self.bindings.get_callback(self.keycmd, forced)
@@ -104,9 +104,9 @@ class Bindings:
         self.bindings = {}
         self.re_bindings = {}
 
-    def add(self, keycmd, callback):
-        if '_' in keycmd:
-            self.re_bindings[keycmd.replace('_', '(.*)')] = callback
+    def add(self, keycmd, callback, regexp=False):
+        if regexp:
+            self.re_bindings[keycmd] = callback
         else:
             self.bindings[keycmd] = callback
 
