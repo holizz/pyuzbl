@@ -127,12 +127,8 @@ class Bindings:
 
 if __name__ == "__main__":
     pyweb = PyWeb()
-    confdir = None
-    if 'XDG_CONFIG_HOME' in os.environ.keys() and os.environ['XDG_CONFIG_HOME']:
-        confdir = os.path.join(os.environ['XDG_CONFIG_HOME'],'pyweb/')
-    else:
-        confdir = os.path.join(os.environ['HOME'],'.config/pyweb/')
-    if confdir and os.path.isdir(confdir):
+    confdir = os.path.join(os.environ.get('XDG_CONFIG_HOME', os.path.expanduser("~/.config")),'pyweb')
+    if os.path.isdir(confdir):
         sys.path.insert(0, confdir)
     try:
         import pywebrc
