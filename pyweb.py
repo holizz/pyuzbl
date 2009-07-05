@@ -9,8 +9,8 @@ class PyWeb:
         self.insert_mode = False
         self.status_format = "%(mode)s [%(keycmd)s] %(uri)s :: %(title)s"
         self.keycmd = ''
-        self.title = ''
-        self.uri = ''
+        self.title = None
+        self.uri = None
         self.bindings = Bindings()
 
         self.window = gtk.Window()
