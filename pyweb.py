@@ -106,7 +106,7 @@ class Bindings:
 
     def add(self, keycmd, callback):
         if '_' in keycmd:
-            self.re_bindings[keycmd] = callback
+            self.re_bindings[keycmd.replace('_', '(.*)')] = callback
         else:
             self.bindings[keycmd] = callback
 
@@ -116,8 +116,7 @@ class Bindings:
                 return (self.bindings[keycmd], ())
         else:
             for bind in self.re_bindings:
-                bind_re = bind.replace('_', '(.*)')
-                m = re.match(bind_re, keycmd)
+                m = re.match(bind, keycmd)
                 if m:
                     return (self.re_bindings[bind], m.groups())
 
