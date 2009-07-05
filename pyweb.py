@@ -35,7 +35,7 @@ class PyWeb:
         self.window.connect('key-press-event', self._key_press)
         self.webview.connect("load-finished", self._view_load_finished)
 
-        self.open_uri(uri)
+        self.webview.open(uri)
 
         self.mainbar.show()
         self.webview.show()
@@ -47,10 +47,6 @@ class PyWeb:
 
     def quit(self):
         gtk.main_quit()
-
-    def open_uri(self, uri):
-        self.uri = uri
-        self.webview.open(uri)
 
     def set_insert_mode(self):
         self.insert_mode = True
