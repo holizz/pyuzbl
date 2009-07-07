@@ -68,6 +68,12 @@ class PyWeb:
             func(*args)
             return True
 
+    def toggle_status(self):
+        if self.mainbar.get_property('visible'):
+            self.mainbar.hide()
+        else:
+            self.mainbar.show()
+
     def _destroy(self, widget):
         self.quit()
 
