@@ -2,6 +2,9 @@
 
 import gobject, gtk, pango, webkit, re, os, sys
 
+class KeycmdResetInhibitor:
+    pass
+
 class PyWeb:
     def __init__(self, uri='about:blank'):
         gobject.threads_init()
@@ -62,11 +65,15 @@ class PyWeb:
         self.bindings.add(binding, callback, regexp)
 
     def run_keycmd(self, forced=False):
+        """returns True if keycmd buffer should be cleared."""
         callback = self.bindings.get_callback(self.keycmd, forced)
         if callback:
             func, args = callback
-            func(*args)
-            return True
+            try:
+                func(*args)
+                return True
+            except Exception:
+                return False
 
     def toggle_status(self):
         if self.mainbar.get_property('visible'):
@@ -98,6 +105,7 @@ class PyWeb:
         elif gtk.gdk.keyval_name(event.keyval) == 'Return':
             if self.run_keycmd(True):
                 self.keycmd = ''
+            self.update_status()
         elif len(event.string) > 0:
             self.keycmd += event.string
             if self.run_keycmd():
@@ -133,7 +141,7 @@ if __name__ == "__main__":
         sys.path.insert(0, confdir)
     try:
         import pywebrc
-        pywebrc.init(pyweb)
+        pywebrc.init(pyweb, vars())
     except ImportError:
         pass
     pyweb.main()
