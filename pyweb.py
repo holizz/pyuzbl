@@ -10,7 +10,7 @@ class PyWeb:
         gobject.threads_init()
 
         self.insert_mode = False
-        self.status_format = "%(mode)s [%(keycmd)s] %(uri)s :: %(title)s"
+        self.status_format = '%(mode)s [%(keycmd)s] %(uri)s :: %(title)s'
         self.keycmd = ''
         self.title = None
         self.uri = None
@@ -28,7 +28,7 @@ class PyWeb:
         self.mainbar.set_padding(2,2)
         self.mainbar.set_alignment(0,0)
         self.mainbar.set_ellipsize(pango.ELLIPSIZE_END)
-        self.mainbar.set_text("")
+        self.mainbar.set_text('')
  
         self.vbox.pack_start(self.webview, True, True, 0)
         self.vbox.pack_end(self.mainbar, False, False, 0)
@@ -36,7 +36,7 @@ class PyWeb:
 
         self.window.connect('destroy', self._destroy)
         self.window.connect('key-press-event', self._key_press)
-        self.webview.connect("load-finished", self._view_load_finished)
+        self.webview.connect('load-finished', self._view_load_finished)
 
         self.webview.open(uri)
 
@@ -134,13 +134,13 @@ class Bindings:
                 if m:
                     return (self.re_bindings[bind], m.groups())
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     pyweb = PyWeb()
 
     if len(sys.argv) > 1:
         pyweb.webview.open(sys.argv[1])
 
-    confdir = os.path.join(os.environ.get('XDG_CONFIG_HOME', os.path.expanduser("~/.config")),'pyweb')
+    confdir = os.path.join(os.environ.get('XDG_CONFIG_HOME', os.path.expanduser('~/.config')),'pyweb')
     if os.path.isdir(confdir):
         sys.path.insert(0, confdir)
     try:
