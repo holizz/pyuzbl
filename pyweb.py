@@ -136,6 +136,10 @@ class Bindings:
 
 if __name__ == "__main__":
     pyweb = PyWeb()
+
+    if len(sys.argv) > 1:
+        pyweb.webview.open(sys.argv[1])
+
     confdir = os.path.join(os.environ.get('XDG_CONFIG_HOME', os.path.expanduser("~/.config")),'pyweb')
     if os.path.isdir(confdir):
         sys.path.insert(0, confdir)
