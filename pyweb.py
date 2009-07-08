@@ -146,6 +146,7 @@ if __name__ == "__main__":
     try:
         import pywebrc
         pywebrc.init(pyweb, vars())
-    except ImportError:
-        pass
+    except ImportError, e:
+        if e.args[0].split()[-1] != 'pywebrc':
+            raise e
     pyweb.main()
